@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --color-flame: #E73F1E;
+  --color-blaze: #FB6C00;
+  --color-amber-gold: #F9B637;
+  --color-cream: #FFDD9C;
+
+  /* Palette Scales */
+  --color-brand-50: #fff9f2;
+  --color-brand-100: #ffeedb;
+  --color-brand-200: #FFDD9C;
+  --color-brand-300: #F9B637;
+  --color-brand-400: #FB6C00;
+  --color-brand-500: #E73F1E;
+  --color-brand-600: #d02d0e;
+  --color-brand-700: #ab1f0b;
+  --color-brand-800: #8b1c0e;
+  --color-brand-900: #71190f;
+  --color-brand-950: #3f0904;
+
+  /* Warm Dark Neutrals (replacing cold slate) */
+  --color-dark-950: #090807;
+  --color-dark-900: #14100d;
+  --color-dark-850: #1a1511;
+  --color-dark-800: #241d18;
+  --color-dark-750: #2f2720;
+  --color-dark-700: #3b322a;
+  --color-dark-600: #54473c;
+  --color-dark-500: #746456;
+  --color-dark-400: #9e8d7d;
+  --color-dark-300: #c5b6a7;
+  --color-dark-200: #e2d8ce;
+  --color-dark-100: #f3ede7;
+}
+
+@layer base {
+  :root {
+    --background: #090807;
+    --foreground: #fff8f0;
+    --primary: #E73F1E;
+    --primary-foreground: #ffffff;
+    --card: #14100d;
+    --card-foreground: #fff8f0;
+    --border: #241d18;
+    --input: #1a1511;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: #FB6C00;
+    color: #ffffff;
+  }
+}
+
+/* Warm Ember Glassmorphism utility */
+.glass {
+  background: rgba(20, 16, 13, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 221, 156, 0.08);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(26, 21, 17, 0.8) 0%, rgba(20, 16, 13, 0.6) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(251, 108, 0, 0.12);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(251, 108, 0, 0.3);
+  box-shadow: 0 10px 30px -5px rgba(231, 63, 30, 0.2);
+}
+
+/* Custom warm ember scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3b322a #090807;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090807;
+  border-left: 1px solid rgba(251, 108, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b322a;
+  border-radius: 9999px;
+  border: 2px solid #090807;
+  transition: all 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FB6C00 0%, #E73F1E 100%);
+  box-shadow: 0 0 10px rgba(251, 108, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #E73F1E;
+}
+
+::-webkit-scrollbar-corner {
+  background: #090807;
+}
