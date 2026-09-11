@@ -4,9 +4,6 @@ import axios from 'axios'
 // In development, this is typically http://localhost:5000
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api/v1',
-  headers: {
-    'Content-Type': 'application/json',
-  },
 })
 
 // Add a request interceptor to inject the token and handle FormData
@@ -19,6 +16,9 @@ api.interceptors.request.use(
     // Let browser set multipart/form-data boundary automatically for FormData
     if (config.data instanceof FormData) {
       delete config.headers['Content-Type']
+      if (config.headers.delete) {
+        config.headers.delete('Content-Type')
+      }
     }
     return config
   },

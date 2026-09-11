@@ -26,9 +26,10 @@ export function useCreateNavLink() {
 export function useUpdateNavLink() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: async ({ id, ...linkData }) => {
-      const { data } = await api.patch(`/navigation-links/${id}`, linkData)
-      return data
+    mutationFn: async ({ id, data, ...linkData }) => {
+      const payload = data || linkData
+      const { data: res } = await api.patch(`/navigation-links/${id}`, payload)
+      return res
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['navLinks'] }),
   })
@@ -225,6 +226,127 @@ export function useUpdateTheme() {
       return data.data
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['theme'] }),
+  })
+}
+
+// --- FAQs Hooks ---
+export function useFaqs() {
+  return useQuery({
+    queryKey: ['faqs'],
+    queryFn: async () => {
+      const { data } = await api.get('/faqs')
+      return data.data || []
+    },
+  })
+}
+
+export function useCreateFaq() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (payload) => {
+      const { data } = await api.post('/faqs', payload)
+      return data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['faqs'] }),
+  })
+}
+
+export function useUpdateFaq() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ id, ...payload }) => {
+      const { data } = await api.patch(`/faqs/${id}`, payload)
+      return data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['faqs'] }),
+  })
+}
+
+export function useDeleteFaq() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (id) => {
+      const { data } = await api.delete(`/faqs/${id}`)
+      return data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['faqs'] }),
+  })
+}
+
+// --- Certifications Hooks ---
+export function useCertifications() {
+  return useQuery({
+    queryKey: ['certifications'],
+    queryFn: async () => {
+      const { data } = await api.get('/certifications')
+      return data.data || []
+    },
+  })
+}
+
+export function useCreateCertification() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (payload) => {
+      const { data } = await api.post('/certifications', payload)
+      return data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['certifications'] }),
+  })
+}
+
+export function useUpdateCertification() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ id, ...payload }) => {
+      const { data } = await api.patch(`/certifications/${id}`, payload)
+      return data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['certifications'] }),
+  })
+}
+
+export function useDeleteCertification() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (id) => {
+      const { data } = await api.delete(`/certifications/${id}`)
+      return data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['certifications'] }),
+  })
+}
+
+// --- Daily Tools Hooks ---
+export function useTools() {
+  return useQuery({
+    queryKey: ['tools'],
+    queryFn: async () => {
+      const { data } = await api.get('/tools')
+      return data.data || []
+    },
+  })
+}
+
+export function useCreateTool() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (payload) => {
+      const { data } = await api.post('/tools', payload)
+      return data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['tools'] }),
+  })
+}
+
+export function useDeleteTool() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (id) => {
+      const { data } = await api.delete(`/tools/${id}`)
+      return data
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['tools'] }),
   })
 }
 

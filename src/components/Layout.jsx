@@ -17,7 +17,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Bell,
-  Palette
+  Palette,
+  HelpCircle
 } from 'lucide-react'
 
 const navigation = [
@@ -27,6 +28,7 @@ const navigation = [
   { name: 'Projects', href: '/projects', icon: FolderGit2 },
   { name: 'Experiences', href: '/experiences', icon: Briefcase },
   { name: 'Skills', href: '/skills', icon: Lightbulb },
+  { name: 'FAQs', href: '/faqs', icon: HelpCircle },
   { name: 'App Alert', href: '/alert', icon: Bell },
   { name: 'App Theme', href: '/theme', icon: Palette },
   { name: 'Messages', href: '/messages', icon: MessageSquare },

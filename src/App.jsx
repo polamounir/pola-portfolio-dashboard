@@ -15,6 +15,7 @@ import Experiences from './pages/Experiences'
 import Skills from './pages/Skills'
 import AlertSettings from './pages/AlertSettings'
 import ThemeSettings from './pages/ThemeSettings'
+import Faqs from './pages/Faqs'
 import Layout from './components/Layout'
 
 import { SidebarProvider } from './context/SidebarContext'
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/projects" element={<Projects />} />
                 <Route path="/experiences" element={<Experiences />} />
                 <Route path="/skills" element={<Skills />} />
+                <Route path="/faqs" element={<Faqs />} />
                 <Route path="/alert" element={<AlertSettings />} />
                 <Route path="/theme" element={<ThemeSettings />} />
                 {/* Other routes will be added here */}

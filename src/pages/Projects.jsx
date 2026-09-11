@@ -54,13 +54,17 @@ export default function Projects() {
       setThumbnailPreview(proj.images?.thumbnail || proj.thumbnailUrl || null)
       reset({ 
         title: proj.title || '', 
+        slug: proj.slug || '',
         description: proj.description || '', 
+        fullDescription: proj.fullDescription || proj.description || '',
         technologies: Array.isArray(proj.technologies) ? proj.technologies.join(', ') : (proj.technologies || ''),
         github: getGithubLink(proj),
         liveDemo: getLiveLink(proj),
         status: proj.status || 'Production',
         lines: proj.lines || '',
         iconEmoji: proj.iconEmoji || '',
+        datePublished: proj.datePublished || '',
+        dateModified: proj.dateModified || '',
         thumbnailUrl: proj.images?.thumbnail || proj.thumbnailUrl || ''
       })
     } else {
@@ -68,13 +72,17 @@ export default function Projects() {
       setThumbnailPreview(null)
       reset({ 
         title: '', 
+        slug: '',
         description: '', 
+        fullDescription: '',
         technologies: '', 
         github: '', 
         liveDemo: '', 
         status: 'Production', 
         lines: '', 
         iconEmoji: '',
+        datePublished: new Date().toISOString().split('T')[0],
+        dateModified: new Date().toISOString().split('T')[0],
         thumbnailUrl: ''
       })
     }
@@ -95,7 +103,6 @@ export default function Projects() {
       setThumbnailFile(file)
       setThumbnailPreview(preview)
       setEditorImageSrc(preview)
-      setIsImageEditorOpen(true)
     }
   }
 
@@ -109,7 +116,9 @@ export default function Projects() {
   const onSubmit = (data) => {
     const formData = new FormData()
     formData.append('title', data.title)
+    formData.append('slug', data.slug || '')
     formData.append('description', data.description)
+    formData.append('fullDescription', data.fullDescription || data.description || '')
     
     // Convert comma-separated string to array
     const techArray = data.technologies.split(',').map(s => s.trim()).filter(Boolean)
@@ -125,6 +134,8 @@ export default function Projects() {
     formData.append('status', data.status || 'Production')
     formData.append('lines', data.lines || '')
     formData.append('iconEmoji', data.iconEmoji || '')
+    formData.append('datePublished', data.datePublished || '')
+    formData.append('dateModified', data.dateModified || '')
 
     if (thumbnailFile) {
       formData.append('thumbnail', thumbnailFile)
@@ -247,8 +258,20 @@ export default function Projects() {
               </div>
 
               <div>
-                <label htmlFor="project-description" className="block text-xs text-stone-400 mb-1">Description</label>
-                <textarea id="project-description" {...register('description')} name="description" autoComplete="off" placeholder="Detailed description of the project" rows={3} required className="block w-full px-4 py-2.5 border border-[#241d18] rounded-xl bg-[#14100d]/90 text-white placeholder-stone-500 focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 resize-none text-sm" />
+                <label htmlFor="project-slug" className="block text-xs text-stone-400 mb-1">
+                  URL Slug <span className="text-[#F9B637] text-[11px]">(Auto-generated from title if blank — e.g. /projects/fast-box)</span>
+                </label>
+                <input id="project-slug" {...register('slug')} name="slug" autoComplete="off" placeholder="e.g., fast-box" className="block w-full px-4 py-2.5 border border-[#241d18] rounded-xl bg-[#14100d]/90 text-white placeholder-stone-500 focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 text-sm font-mono" />
+              </div>
+
+              <div>
+                <label htmlFor="project-description" className="block text-xs text-stone-400 mb-1">Short Description (Cards)</label>
+                <textarea id="project-description" {...register('description')} name="description" autoComplete="off" placeholder="Brief card summary of the project" rows={2} required className="block w-full px-4 py-2.5 border border-[#241d18] rounded-xl bg-[#14100d]/90 text-white placeholder-stone-500 focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 resize-none text-sm" />
+              </div>
+
+              <div>
+                <label htmlFor="project-full-description" className="block text-xs text-stone-400 mb-1">Full Description (Detail Page Overview & Architecture)</label>
+                <textarea id="project-full-description" {...register('fullDescription')} name="fullDescription" autoComplete="off" placeholder="Complete architecture details and specifications for the dedicated project page..." rows={3} className="block w-full px-4 py-2.5 border border-[#241d18] rounded-xl bg-[#14100d]/90 text-white placeholder-stone-500 focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 resize-none text-sm" />
               </div>
 
               <div>
@@ -279,6 +302,17 @@ export default function Projects() {
                 <div>
                   <label htmlFor="project-lines" className="block text-xs text-stone-400 mb-1">Lines of Code</label>
                   <input id="project-lines" {...register('lines')} name="lines" autoComplete="off" placeholder="e.g. 15,000+" className="block w-full px-4 py-2.5 border border-[#241d18] rounded-xl bg-[#14100d]/90 text-white placeholder-stone-500 focus:ring-2 focus:ring-[#FB6C00]/40 text-sm" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label htmlFor="project-date-published" className="block text-xs text-stone-400 mb-1">Date Published (YYYY-MM-DD)</label>
+                  <input id="project-date-published" {...register('datePublished')} name="datePublished" placeholder="2024-05-15" className="block w-full px-4 py-2.5 border border-[#241d18] rounded-xl bg-[#14100d]/90 text-white placeholder-stone-500 focus:ring-2 focus:ring-[#FB6C00]/40 text-sm" />
+                </div>
+                <div>
+                  <label htmlFor="project-date-modified" className="block text-xs text-stone-400 mb-1">Date Modified (YYYY-MM-DD)</label>
+                  <input id="project-date-modified" {...register('dateModified')} name="dateModified" placeholder="2026-06-15" className="block w-full px-4 py-2.5 border border-[#241d18] rounded-xl bg-[#14100d]/90 text-white placeholder-stone-500 focus:ring-2 focus:ring-[#FB6C00]/40 text-sm" />
                 </div>
               </div>
 

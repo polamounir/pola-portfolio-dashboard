@@ -26,6 +26,9 @@ export default function Profile() {
       reset({
         name: profile.name || '',
         title: profile.title || '',
+        headline: profile.headline || '',
+        yearsOfExperience: profile.yearsOfExperience || '1+',
+        linesOfCode: profile.linesOfCode || '40K+',
         bio: profile.shortBio || profile.detailedBio || profile.bio || '',
         email: profile.contact?.email || profile.email || '',
         location: profile.contact?.location || profile.location || '',
@@ -42,7 +45,6 @@ export default function Profile() {
       setAvatarFile(file)
       setAvatarPreview(preview)
       setEditorImageSrc(preview)
-      setIsImageEditorOpen(true) // Automatically open the editor to crop & adjust
     }
   }
 
@@ -90,6 +92,7 @@ export default function Profile() {
     updateProfile.mutate(formData, {
       onSuccess: () => {
         setAvatarFile(null)
+        setAvatarPreview(null)
         setResumeFile(null)
       }
     })
@@ -243,9 +246,28 @@ export default function Profile() {
               <input id="profile-location" {...register('location')} name="location" autoComplete="address-level2" className="block w-full px-4 py-3 border border-[#241d18] rounded-xl bg-[#14100d]/80 text-[#fff8f0] placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 focus:bg-[#1a1511] transition-all" />
             </div>
 
+            <div className="space-y-1.5">
+              <label htmlFor="profile-exp" className="block text-sm font-medium text-stone-300">Years of Experience (Metric)</label>
+              <input id="profile-exp" {...register('yearsOfExperience')} name="yearsOfExperience" placeholder="e.g. 1+" className="block w-full px-4 py-3 border border-[#241d18] rounded-xl bg-[#14100d]/80 text-[#fff8f0] placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 focus:bg-[#1a1511] transition-all" />
+            </div>
+
+            <div className="space-y-1.5">
+              <label htmlFor="profile-codelines" className="block text-sm font-medium text-stone-300">Lines of Code (Metric)</label>
+              <input id="profile-codelines" {...register('linesOfCode')} name="linesOfCode" placeholder="e.g. 40K+" className="block w-full px-4 py-3 border border-[#241d18] rounded-xl bg-[#14100d]/80 text-[#fff8f0] placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 focus:bg-[#1a1511] transition-all" />
+            </div>
+
             <div className="space-y-1.5 md:col-span-2">
-              <label htmlFor="profile-bio" className="block text-sm font-medium text-stone-300">Bio</label>
-              <textarea id="profile-bio" {...register('bio')} name="bio" autoComplete="off" rows={4} className="block w-full px-4 py-3 border border-[#241d18] rounded-xl bg-[#14100d]/80 text-[#fff8f0] placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 focus:bg-[#1a1511] transition-all resize-none" />
+              <label htmlFor="profile-headline" className="block text-sm font-medium text-stone-300">
+                Hero Introduction Headline / Paragraph <span className="text-[#F9B637] text-xs font-normal">(Shown in the terminal intro card on Home page)</span>
+              </label>
+              <textarea id="profile-headline" {...register('headline')} name="headline" rows={3} placeholder="Pola Mounir is a React Frontend Developer based in Giza, Egypt, specializing in responsive web applications..." className="block w-full px-4 py-3 border border-[#241d18] rounded-xl bg-[#14100d]/80 text-[#fff8f0] placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 focus:bg-[#1a1511] transition-all resize-none text-sm" />
+            </div>
+
+            <div className="space-y-1.5 md:col-span-2">
+              <label htmlFor="profile-bio" className="block text-sm font-medium text-stone-300">
+                About Me Bio Paragraphs <span className="text-[#F9B637] text-xs font-normal">(Shown on About page &amp; About card on Home)</span>
+              </label>
+              <textarea id="profile-bio" {...register('bio')} name="bio" autoComplete="off" rows={5} className="block w-full px-4 py-3 border border-[#241d18] rounded-xl bg-[#14100d]/80 text-[#fff8f0] placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-[#FB6C00]/40 focus:border-[#FB6C00]/60 focus:bg-[#1a1511] transition-all resize-none text-sm" />
             </div>
 
             <div className="space-y-1.5">

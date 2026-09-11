@@ -137,7 +137,8 @@ export default function NavLinks() {
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
